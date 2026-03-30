@@ -1,0 +1,115 @@
+{
+  "name": "AI Agent Publik_Muhammad Rasyid Sholahudin",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Halo 👋\nNama saya Rasyid, ada yang dapat saya bantu ?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        144,
+        144
+      ],
+      "id": "715c98b7-066d-4d9d-a6ce-59f6aa510f6b",
+      "name": "When chat message received",
+      "webhookId": "095a1f0d-04ce-4701-bcfa-25f4647a05b7"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Kamu adalah agen AI yang dapan menjawab dan memebrikan saran seputar AI ataupun teknologi. berikan jawaban sesuai dengan informasi. jika tidak dapat menjawab sesuai dengan pertanyaan jangan mengarang, gunakan bahasa indoneisa yang baik."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        352,
+        144
+      ],
+      "id": "5394f275-9f44-44dd-8d16-62600733c7a9",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        352,
+        336
+      ],
+      "id": "b53eeeb2-6621-4e43-a791-f091eaa35c1b",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "diOFJOeKeUtmM6Pb",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        448,
+        448
+      ],
+      "id": "680f93a8-3e23-4b1c-9bfb-a70613c79c9e",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a89deb1f-2882-4934-ad86-905177d07572",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b9e5ce01e3788066ad49ff4b7010a716f2a3edb05b583fa51e1f9ac24a4572a1"
+  },
+  "id": "tmyBLMkyEu847mwA",
+  "tags": []
+}
